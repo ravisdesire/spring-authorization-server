@@ -50,7 +50,7 @@ public class DatabaseLoader {
     }
 
     private void clientCreation() {
-        Optional<Client> clientOptional = clientRepository.findByClientId("gpcm-client");
+        Optional<Client> clientOptional = clientRepository.findByClientId("demo-client");
         if(clientOptional.isPresent()) return;
         
         List<String> clientAuthenticationMethods = new ArrayList<>();
@@ -62,19 +62,18 @@ public class DatabaseLoader {
         authorizationGrantTypes.add(AuthorizationGrantType.CLIENT_CREDENTIALS.getValue());
         
         List<String> redirectUri = new ArrayList<>();
-            redirectUri.add("https://oidcdebugger.com/debug");
             redirectUri.add("http://localhost:9191/login/oauth2/code/demo-client-oidc");
             redirectUri.add("http://localhost:9191/authorized");
             
         List<String> scope = new ArrayList<>();
             scope.add(OidcScopes.OPENID);
-            scope.add("read");
-            scope.add("write"); 
+            scope.add("demo.read");
+            scope.add("demo.write"); 
         
         Client client = new Client();
         client.setId(UUID.randomUUID().toString());
-        client.setClientId("gpcm-client");
-        client.setClientSecret(passwordEncoder.encode("gpcm-client-secret"));
+        client.setClientId("demo-client");
+        client.setClientSecret(passwordEncoder.encode("demo-client-secret"));
         client.setClientAuthenticationMethods(StringUtils.collectionToCommaDelimitedString(clientAuthenticationMethods));
         client.setAuthorizationGrantTypes(StringUtils.collectionToCommaDelimitedString(authorizationGrantTypes));
         client.setRedirectUris(StringUtils.collectionToCommaDelimitedString(redirectUri));
