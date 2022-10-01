@@ -1,0 +1,39 @@
+## YAML Template.
+---
+server:
+    address: ${SERVER_ADDRESS}
+    port: ${SERVER_PORT}
+    servlet:
+        context-path: /
+spring:
+    profiles:
+        active: dev
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: ${MYSQL_USERNAME}
+        password: ${MYSQL_PASSWORD}
+        url: ${MYSQL_URL}
+        hikari:
+            pool-name: authorisation-hikari-cp
+            connection-timeout: 10000
+            idle-timeout: 10000
+            minimum-idle: 5
+            maximum-pool-size: 30
+            max-lifetime: 600000
+    jpa:
+        hibernate:
+            ddl-auto: validate
+        generate-ddl: true    
+        show-sql: true
+    mvc:
+        log-request-details: true
+    application:
+        name: authorisation-service
+        
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.springframework.security.oauth2: INFO
