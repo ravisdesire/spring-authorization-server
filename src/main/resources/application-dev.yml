@@ -4,5 +4,5 @@ SERVER_ADDRESS: localhost
 SERVER_PORT: 9090    
 
 MYSQL_USERNAME: "root"
-MYSQL_PASSWORD: "password"
+MYSQL_PASSWORD: "RvTukAsIa7"
 MYSQL_URL: "jdbc:mysql://localhost:3306/abcd?autoReconnect=true&useSSL=false&useUnicode=yes&characterEncoding=UTF-8"
