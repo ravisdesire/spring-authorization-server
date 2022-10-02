@@ -1,7 +1,3 @@
-/*
- * Copyright 2022 Global Internetware IT Solutions
- * https://www.globaliware.com
- */
 package com.auth.demo.security;
 
 import com.auth.demo.persistence.model.User;
