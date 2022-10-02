@@ -2,6 +2,8 @@ package com.auth.demo.service;
 
 import com.auth.demo.persistence.model.Authorization;
 import com.auth.demo.persistence.repository.AuthorizationRepository;
+import com.auth.demo.security.CustomUserPrincipal;
+import com.auth.demo.security.CustomUserPrincipalMixin;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.Module;
@@ -49,6 +51,7 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
         List<Module> securityModules = SecurityJackson2Modules.getModules(classLoader);
         this.objectMapper.registerModules(securityModules);
         this.objectMapper.registerModule(new OAuth2AuthorizationServerJackson2Module());
+        this.objectMapper.addMixIn(CustomUserPrincipal.class, CustomUserPrincipalMixin.class);
     }
 
     @Override

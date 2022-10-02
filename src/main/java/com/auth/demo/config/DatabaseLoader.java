@@ -51,6 +51,7 @@ public class DatabaseLoader {
         
         List<String> clientAuthenticationMethods = new ArrayList<>();
         clientAuthenticationMethods.add(ClientAuthenticationMethod.CLIENT_SECRET_BASIC.getValue());
+        clientAuthenticationMethods.add(ClientAuthenticationMethod.CLIENT_SECRET_POST.getValue());
         
         List<String> authorizationGrantTypes = new ArrayList<>();
         authorizationGrantTypes.add(AuthorizationGrantType.AUTHORIZATION_CODE.getValue());
@@ -58,8 +59,9 @@ public class DatabaseLoader {
         authorizationGrantTypes.add(AuthorizationGrantType.CLIENT_CREDENTIALS.getValue());
         
         List<String> redirectUri = new ArrayList<>();
-            redirectUri.add("http://localhost:9191/login/oauth2/code/demo-client-oidc");
-            redirectUri.add("http://localhost:9191/authorized");
+            redirectUri.add("https://oidcdebugger.com/debug");
+            redirectUri.add("http://127.0.0.1:9191/login/oauth2/code/demo-client-oidc");
+            redirectUri.add("http://127.0.0.1:9191/authorized");
             
         List<String> scope = new ArrayList<>();
             scope.add(OidcScopes.OPENID);

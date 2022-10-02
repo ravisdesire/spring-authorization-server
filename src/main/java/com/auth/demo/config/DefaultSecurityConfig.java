@@ -1,5 +1,6 @@
 package com.auth.demo.config;
 
+
 import com.auth.demo.security.JpaUserDetailsManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

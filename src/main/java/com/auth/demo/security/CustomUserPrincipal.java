@@ -3,20 +3,20 @@ package com.auth.demo.security;
 import com.auth.demo.persistence.model.Role;
 import com.auth.demo.persistence.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import javax.persistence.Transient;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  *
  * @author globaliware
  */
-public class UserPrincipal implements UserDetails{
+public class CustomUserPrincipal implements UserDetails{
     
-    private String id;
+    private Long id;
     
     @JsonIgnore
     private String username;
@@ -27,9 +27,25 @@ public class UserPrincipal implements UserDetails{
     @JsonIgnore
     private Role role;
     
+    @JsonIgnore
     private boolean enable;
+    
+    @Transient
+    private List<GrantedAuthority> authorities;
 
-    public UserPrincipal(String id, String username, String password, Role role, boolean enable) {
+    public CustomUserPrincipal() {
+        super();
+    }
+    
+    public CustomUserPrincipal(Long id, String username, String password, boolean enable, List<GrantedAuthority> authorities) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.enable = enable;
+        this.authorities = authorities;
+    }
+
+    public CustomUserPrincipal(Long id, String username, String password, Role role, boolean enable) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -37,9 +53,9 @@ public class UserPrincipal implements UserDetails{
         this.enable = enable;
     }
     
-    public static UserPrincipal create(User user){
-        return new UserPrincipal(
-                user.getId().toString(),
+    public static CustomUserPrincipal create(User user){
+        return new CustomUserPrincipal(
+                user.getId(),
                 user.getUsername(),
                 user.getPassword(),
                 user.getRole(),
@@ -49,57 +65,45 @@ public class UserPrincipal implements UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        final List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(this.role.getName()));
-        return authorities;
-    }
-
-    @Override
-    public String getPassword() {
-        return this.password;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.username;
+        return AuthorityUtils.createAuthorityList(this.role.getName());
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return enable;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return this.enable;
+        return enable;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return this.enable;
+        return enable;
     }
 
     @Override
     public boolean isEnabled() {
-        return this.enable;
+        return enable;
     }
 
-    public String getId() {
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    public Long getId() {
         return id;
     }
+    
+    
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-    
-    
-    
-    
-    
     
     
     

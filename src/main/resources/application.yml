@@ -3,7 +3,7 @@
 server:
     address: ${SERVER_ADDRESS}
     port: ${SERVER_PORT}
-    servlet:
+servlet:
         context-path: /
 spring:
     profiles:
@@ -22,6 +22,7 @@ spring:
             max-lifetime: 600000
     jpa:
         hibernate:
+            #ddl-auto: create-drop
             ddl-auto: validate
         generate-ddl: true    
         show-sql: true
