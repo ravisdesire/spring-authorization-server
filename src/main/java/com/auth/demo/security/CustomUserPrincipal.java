@@ -5,7 +5,6 @@ import com.auth.demo.persistence.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Collection;
 import java.util.List;
-import javax.persistence.Transient;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,7 +29,7 @@ public class CustomUserPrincipal implements UserDetails{
     @JsonIgnore
     private boolean enable;
     
-    @Transient
+    @JsonIgnore
     private List<GrantedAuthority> authorities;
 
     public CustomUserPrincipal() {
